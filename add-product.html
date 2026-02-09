@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Producto</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="form-page">
+
+<div class="form-container">
+    <h2 id="titlePage"></h2>
+
+    <form id="productForm">
+        <input type="text" id="titleInput" placeholder="Título del producto" required>
+        <input type="number" id="priceInput" placeholder="Precio del producto" required>
+
+        <button type="submit" id="actionBtn"></button>
+        <a href="index.html" class="cancel-btn">Cancelar</a>
+    </form>
+</div>
+
+<script>
+const API_URL = "https://dummyjson.com/products";
+const params = new URLSearchParams(window.location.search);
+const action = params.get("action");
+const productId = params.get("id");
+
+const titlePage = document.getElementById("titlePage");
+const titleInput = document.getElementById("titleInput");
+const priceInput = document.getElementById("priceInput");
+const actionBtn = document.getElementById("actionBtn");
+const form = document.getElementById("productForm");
+
+// CREAR
+if (action === "add") {
+    titlePage.textContent = " Agregar Producto";
+    actionBtn.textContent = "Guardar";
+}
+
+// EDITAR
+if (action === "edit") {
+    titlePage.textContent = " Editar Producto";
+    actionBtn.textContent = "Actualizar";
+
+    fetch(`${API_URL}/${productId}`)
+        .then(res => res.json())
+        .then(data => {
+            titleInput.value = data.title;
+            priceInput.value = data.price;
+        });
+}
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    if (action === "add") {
+        await fetch(`${API_URL}/add`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: titleInput.value,
+                price: Number(priceInput.value)
+            })
+        });
+        alert("Producto agregado correctamente");
+    }
+
+    if (action === "edit") {
+        await fetch(`${API_URL}/${productId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                title: titleInput.value,
+                price: Number(priceInput.value)
+            })
+        });
+        alert("Producto actualizado correctamente");
+    }
+
+    window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>
