@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>ShopMaster | Dashboard</title>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top-bar">
+    <h1><i class="fi fi-sr-home"></i>ShopMaster Admin</h1>
+
+    <div class="search-group">
+        <input type="text" id="searchInput" placeholder="Buscar producto">
+        <button id="searchBtn">Buscar</button>
+    </div>
+
+    <a href="add-product.html?action=add" class="btn-primary"><i class="fi fi-rr-plus"></i>Nuevo Producto</a>
+    
+</header>
+
+<section class="filters">
+    <select id="categorySelect">
+        <option value="">Todas las categorías</option>
+    </select>
+
+    <select id="sortSelect">
+        <option value="">Ordenar por</option>
+        <option value="title-asc">Título A-Z</option>
+        <option value="title-desc">Título Z-A</option>
+        <option value="price-asc">Precio ↑</option>
+        <option value="price-desc">Precio ↓</option>
+    </select>
+</section>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Foto</th>
+            <th>Título</th>
+            <th>Precio</th>
+            <th>Categoría</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody id="productsTable"></tbody>
+</table>
+
+<footer class="pagination">
+    <button id="prevBtn">Anterior</button>
+    <span id="pageInfo"></span>
+    <button id="nextBtn">Siguiente</button>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
